@@ -6,6 +6,15 @@ project(icicle)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+if(ANDROID)
+    message(STATUS "Building for Android")
+    set(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE} CACHE STRING "Toolchain file used for cross-compiling")
+    set(ANDROID_ABI ${ANDROID_ABI} CACHE STRING "Android ABI")
+    set(ANDROID_PLATFORM ${ANDROID_PLATFORM} CACHE STRING "Android platform")
+    set(ANDROID_STL ${ANDROID_STL} CACHE STRING "Android STL")
+    
+endif()
+
 include(cmake/field.cmake)
 include(cmake/curve.cmake)
 include(cmake/hash.cmake)
@@ -62,6 +71,11 @@ add_library(icicle_device SHARED
   src/config_extension.cpp
 )
 target_link_libraries(icicle_device PUBLIC dl)
+# log library for Android only
+if(ANDROID)
+  find_library(log-lib log)
+  target_link_libraries(icicle_device PRIVATE ${log-lib})
+endif()
 include_directories(include)
 
 # Define the install directory (default is /usr/local)
