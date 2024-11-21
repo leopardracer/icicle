@@ -8,7 +8,7 @@ If you're interested in understanding these integrations better or learning how 
 
 ## A primer to building your own integrations
 
-Lets illustrate an ICICLE integration, so you can understand the core API and design overview of ICICLE.
+Let's illustrate an ICICLE integration, so you can understand the core API and design overview of ICICLE.
 
 ![ICICLE architecture](../../static/img/architecture-high-level.png)
 
